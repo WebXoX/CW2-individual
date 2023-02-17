@@ -1,0 +1,279 @@
+@import url('https://fonts.googleapis.com/css2?family=Secular+One&display=swap');
+/* importing font and applying on all  */
+*{
+    font-family: 'Secular One', sans-serif;
+}
+/* positioning content in the product page */
+#content{ 
+    position: relative;
+    left:  150px;    
+    top: -250px;
+}
+body{
+    margin: 0%;
+    border: 0%;
+    padding: 0%;
+    height: 100%;
+    width: 100%;
+    min-height: 800px;
+    min-width: 1500px;
+}
+/* Nav bar css */
+.nav{
+    display: flex;
+    background-image: url("../image/grif.png");
+    background-position: center center;
+    background-size: cover;
+    padding:20px ;
+    border-bottom:solid beige 0.9px ;
+    box-shadow: 0px 0px 10px rgb(228, 105, 105);
+    min-width: 1460px;
+    height: 80px;
+}
+
+.logo{
+    position: relative;
+    right: 10px;
+    top: -20px;
+    border-bottom-right-radius:500% ;
+    border-bottom-left-radius:500% ;
+    width: 140px;
+    height: 190px;
+    background-color: rgb(240, 55, 60);
+}
+.logoH{
+    position: relative;
+    left: 3px;
+    top: 50px;
+}
+.logoH:hover{
+    position: relative;
+    -webkit-filter: drop-shadow(1px 1px 0 black)
+    drop-shadow(-1px -1px 0 black);
+    filter: drop-shadow(10px 10px 0 black) 
+    drop-shadow(-1px -1px 0 black);
+    left: -6px;
+    top: 40px;
+    height: 110px;
+}
+.Courses{
+    position: relative;
+    top: 20px;
+    left: 140px;
+    font-size: 20px;
+    color: white;
+}
+.Courses>h1:hover{
+    cursor: pointer;
+    -webkit-filter: drop-shadow(1px 1px 0 black)
+    drop-shadow(-1px -1px 0 black);
+    filter: drop-shadow(10px 10px 0 black) 
+    drop-shadow(-1px -1px 0 black);
+    /* border-bottom: solid 2px palevioletred; */
+}
+.checkOut{
+    position: relative;
+    top: 40px;
+    left: 900px;
+}
+#cart{
+    position: relative;
+    top: 10px;
+    left: 30px;
+    font-size:30px ;
+    color:rgb(247, 190, 45);
+}
+/* search bar css */
+.search{
+    position: relative;
+    text-align: center;
+    top: 50px;   
+}
+#searchS{
+    height: 30PX;
+    width: 500PX;
+    font-size: 20px;
+    text-align: center;
+    border: solid 1px black;
+    border-radius:10px ; 
+}
+.searchB{
+    position: absolute;
+    top: -1px;
+    /* right: 5px; */
+    width: 30PX;
+    height: 38PX;
+}
+.checkB{
+    position: relative;
+    left: 100px;
+    height: 0px;
+    width: 0PX;
+    border: none;
+    background-color: transparent;
+}
+.checkB:hover{
+   cursor: pointer;
+   -webkit-filter: drop-shadow(1px 1px 0 black)
+    drop-shadow(-1px -1px 0 black);
+    filter: drop-shadow(10px 10px 0 black) 
+    drop-shadow(-1px -1px 0 black);
+}
+.checkB:disabled{
+    cursor: context-menu;
+ }
+/* cart page */
+#cart>h6{
+    color: white;
+    position: relative;
+    top: -92px;
+    left: 30px;
+}
+.cartHead{
+    width: 1000px;
+    position: relative;
+    top: 50px;
+    left: 150px;
+}
+/* product page */
+.productss{
+    padding: 100px;
+    height: auto;
+    min-height: 400px;
+    display: grid;
+    grid-template-columns: 1fr 1fr  1fr;
+    grid-gap:50px ;
+    
+}
+.product{
+    position: relative;
+    top: 40px;
+    border: 1px solid #ddd;
+    -webkit-filter: drop-shadow(1px 1px 0 black)
+    drop-shadow(-1px -1px 0 black);
+    filter: drop-shadow(8px 10px 0 black) 
+    drop-shadow(-1px -1px 0 black);
+    background-color: rgb(245, 245, 245);
+    border-radius: 40px;
+    height: 200px;
+    width: 280px;
+    padding: 50px; 
+}
+/* product images */
+figure{
+    position: relative;
+    bottom: 50px;
+    right: 80px;
+}
+figure>img{
+    border-radius: 20px;
+}
+/* cart page items css */
+.cartProduct{
+    position: relative;
+    top: 10px;
+    border: 1px solid #ddd;
+    -webkit-filter: drop-shadow(1px 1px 0 black)
+    drop-shadow(-1px -1px 0 black);
+    filter: drop-shadow(8px 10px 0 black) 
+    drop-shadow(-1px -1px 0 black);
+    background-color: rgb(245, 245, 245);
+    border-radius: 40px;
+    height: 200px;
+    width: 280px;
+    padding: 50px; 
+}
+#Mbutton{
+    color: #ffff;
+    background-color: #5cb85c;
+    border-color: #5cb85c; 
+    width: 80px;
+    height: 23px;
+    border-radius: 5px;
+    -webkit-filter: drop-shadow(1px 1px 0 black)
+    drop-shadow(-1px -1px 0 black);
+    filter: drop-shadow(1px 5px 0 black) 
+    drop-shadow(-1px -1px 0 black);
+}
+#rButton{
+    color: #ffff;
+    background-color: #D8636F;
+    border-color: #D8636F; 
+    width: 80px;
+    height: 23px;
+    border-radius: 5px;
+    -webkit-filter: drop-shadow(1px 1px 0 black)
+    drop-shadow(-1px -1px 0 black);
+    filter: drop-shadow(1px 5px 0 black) 
+    drop-shadow(-1px -1px 0 black);
+}
+#Mbutton:disabled{
+    color: rgb(158, 18, 18) ;
+    background-color: #D8636F;
+    border-color: #D8636F; 
+    width: 80px;
+}
+/* form css */
+.order{
+    width: 600px;
+    position: relative;
+    bottom: 100px;
+    left: 700px;
+}
+#fName{
+    position: relative;
+    right: 300px;
+}
+#lName{
+    position: relative;
+    left: 80px;
+    top: -40px;
+}
+#number{
+    position: relative;
+    top: -20px;
+    right: 148px;
+}
+#submitB{
+    background-color: #5cb85c;
+    border-color: #5cb85c; 
+    border-radius: 5px;
+    -webkit-filter: drop-shadow(1px 1px 0 black)
+    drop-shadow(-1px -1px 0 black);
+    filter: drop-shadow(1px 5px 0 black) 
+    drop-shadow(-1px -1px 0 black);
+}
+/* empty cart css */
+.empty{
+    position: relative;
+    height: 550px;
+    top: 80px;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+}
+#bold1{
+    font-family: "Futura PT", "Futura", "Helvetica", "Sans serif";
+    font-size: 41px;
+    font-weight: 50;
+}
+#notBold{
+    position: relative;
+    bottom: 130px;
+    font-family: "Futura PT", "Futura", "Helvetica", "Sans serif";
+
+}
+/* footer css */
+.footer{
+    width: inherit;
+    background-color: rgb(246, 244, 244);
+    height: 80px;
+    display: flex;
+    font-family: "Futura PT", "Futura", "Helvetica", "Sans serif";
+    justify-content: center;
+}
+.footer>p{
+    font-size: 18px;
+    position: relative;
+    top: 10px;
+}

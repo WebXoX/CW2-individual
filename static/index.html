@@ -1,0 +1,382 @@
+<!-- Front end html for selling lessons-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- LINKING VUE, STYLE SHEET AND FONT AWESOME -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <link rel="stylesheet" href="./style/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <script src="./js/lessons.js"></script>    
+    <title>MDX</title>
+</head>
+<body>
+    <!-- MAIN WRAPPER -->
+<div class="main-wrapper">
+    <!-- VUE APP -->
+    <div id="app">
+        <!-- NAV BAR -->
+        <nav class="nav">
+            <div class="logo">
+                <img class="logoH" height="100px" src="./image/gr.png">
+            </div>
+            <div class="Courses">
+            <h1 @click='showLessons=true'>Courses</h1>
+            </div>
+            <!-- CHECKOUT BUTTON LINKED USING V-BIND TO FUNCTION -->
+            <div class="checkOut">
+                <button class="checkB" @click='showCheckOut'  v-bind:disabled="!cartLength">
+                
+                    <span id="cart" class="fas fa-cart-plus"> <h6>{{cartLength}}</h6></span> 
+                </button>
+            </div>
+        </nav>
+        <!-- PRODUCT PAGE SHOWS ALL PRODUCTS/LESSONS  is showLessons is true-->
+    <div class="page" v-if="showLessons">
+        <!-- dynamic search bar -->
+        <div class="search">
+            <input id="searchS" placeholder="search..." type="text" v-model="search" @keyup="searcher" >
+            <br>
+            <!-- sortting options -->
+            <i class="fa-solid fa-hat-wizard"></i>
+            <input type="radio" id="Assend" name="order" value="Assending" @click=" sorter">Ascending
+            <input type="radio" id="Dessend"name="order" value="Dessending"@click=" sorter">Descending ::
+            <input type="radio"  id="Price" name="oType" value="Price"@click=" sorter">Price
+            <input type="radio" id="location" name="oType" value="location"@click=" sorter">location
+            <input type="radio" id="Subject" name="oType" value="Subject"@click=" sorter">Subject
+            <input type="radio" id="Space" name="oType" value="Space"@click=" sorter">Space
+        </div>
+        <!-- Div container for displaying products/lessons -->
+        <div class="productss" >
+                <div class="product" v-for="product in products" v-if="product.show===true"> 
+                    <figure>
+                    <img height="200px" width="180px" v-bind:src="product.image">
+                    </figure>
+                    <!-- content of each product -->
+                    <div id="content"> 
+                        <p >Subject: <b>{{product.title}}</b></p>
+                        <p> City: <b>{{product.location}}</b></p>
+                        <p>Price: <b>{{product.price}}</b></p>
+                        <p>Space: <b>{{product.quantity}}</b></p>
+                        <!-- rating made using v-for -->
+                        <div>
+                            <br>
+                            <span v-for="n in product.rating"><i class="fa-solid fa-star"></i></span>
+                            <span v-for="n in 5-product.rating"><i class="fa-regular fa-star"></i></span>
+                        </div>
+                       
+                        <button id="Mbutton" @click='addItem(product)' v-bind:disabled="!canAdd(product)">Add</button>
+                        <span v-if="product.quantity === 0">
+                             All out!!
+                        </span>
+                        <span v-else-if="product.quantity  < 5">
+                             only {{product.quantity }} left!
+                        </span>
+                        <span v-else>  Buy now!!</span>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <!-- CART PAGE WITH CART ITEMS -->
+    <div class="cartPage" v-else>
+        <div class="cartWrapper">
+            <h2 class="cartHead">CART</h2>
+            <div class="cartItem"  >
+                <div class="filledCart"v-if="cartLength>0">
+                    <div class="productss"  >
+                        <div class="cartProduct" v-for="items in dupRemove(cart)" v-if="cartCounting(items)" > 
+                            <figure>
+                            <img height="200px" width="180px" v-bind:src="productFinder(items).image">
+                            </figure>
+                            <!-- CART CONTENT -->
+                            <div id="content">
+                                <p >Subject: <b>{{productFinder(items).title}}</b></p>
+                                <p> City: <b>{{productFinder(items).location}}</b></p>
+                                <p>Price: <b>{{productFinder(items).price}}</b></p>
+                                <p>amount: <b>{{cartCounting(items)}}</b></p>
+                                <div>
+                                    <span v-for="n in productFinder(items).rating"><i class="fa-solid fa-star"></i></span>
+                                    <span v-for="n in 5-productFinder(items).rating"><i class="fa-regular fa-star"></i></span>
+             
+                                </div>
+                                <button id="rButton" @click="removeCart(items)">remove</button>
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order">
+                        <h2>Checkout</h2>
+                        <p id="fName">
+                            <strong>First Name:</strong>
+                            <!-- linking feilds to data-->
+                            <input type="letters" v-model.trim="order.firstName"/>
+                        </p>
+                        <p id="lName">
+                            <strong>Last Name:</strong>
+                            <!-- linking feilds to data-->
+                            <input type="letters" v-model.trim="order.lastName"/>
+                        </p>
+                        <p id="number">
+                            <strong>Phone Number:</strong> 
+                            <input   type="number" maxlength="10" v-model="order.number"/>
+                        </p>
+                        <button id="submitB" @click="submitForm" v-bind:disabled="!canForm" >Place Order</button>
+                    </div>
+
+                </div>
+                <!-- if cart is empty -->
+                <div class="empty" v-else="cartLength===0">
+                    <p>
+                        <b id="bold1">Orders</b>
+                        <p id="notBold">You have no orders yet.</p>
+                    </p>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- FOOTER -->
+    <div class="footer">
+         <p>
+            @Joe Shaju Perinchery
+         </p>
+    </div>
+</div>
+<!-- VUE SCRIPT -->
+<script>
+    /*VUE OBJECT*/
+    let webstore = new Vue({
+        el: '#app', //mounting div to object
+        data: {     //data fields
+            sitename: 'MDX',
+            showLessons: true,
+            search:'',
+            order:{
+                firstName: " ",
+                lastName:' ',
+                number:'',
+                orderList:[]
+            },
+            products:[],
+            cart: []
+        },
+        methods: {  //methods
+            /*Method to add items to cart*/
+            addItem(product){   
+                if(product.quantity>0)
+                {
+                    product.quantity-=1 ;
+                    this.cart.push( product.id);
+                }
+            },
+            /*Method to switch between pages*/
+            showCheckOut(){
+                this.showLessons = this.showLessons ?false:true;
+            },
+             /*Method returns unique items in cart*/ 
+             dupRemove(cart) {
+                var unique = [];
+                cart.forEach(element => {
+                    if (!unique.includes(element)) {
+                        unique.push(element);
+                    }
+                });
+                return unique;
+             },
+            /*Method to submit the form using fetch to post and update collections*/ 
+            submitForm(){
+                let uni =this.dupRemove(this.cart)
+                let orderList=[]
+                uni.forEach((element)=>{
+                    let orders={
+                        "lessonId": element,
+                        "space":this.cartCounting(element)
+                    }
+                    this.order.orderList.push(orders)
+                });
+                fetch('http://localhost:3000/collection/orders',{
+                    method: 'POST',
+                    headers:{
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(this.order)
+                }).then(
+                    uni.forEach((element) =>{
+                        this.order.lessonId = element
+                        this.order.space =  this.cartCounting(element)
+                        let space = this.productFinder(element).quantity
+                        let url="http://localhost:3000/collection/lessons/"
+                        url=url.concat( this.productFinder(element)._id);
+                        fetch(url,{
+                            method: 'PUT',
+                            headers:{
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({quantity:space})
+                        }).then(
+                            this.productFinder(element).quantity
+                        )
+                    })
+                );
+                alert("Order Placed!!")
+                this.cart=[]
+            },
+            /*Method to check if it can be added to cart*/ 
+            canAdd(product){
+                return product.
+                quantity!=0   
+            },
+            /*function that counts the number duplicates in the cart */ 
+            cartCounting(id){
+                let count = 0
+                for (let i = 0; i < this.cart.length;i++)
+                {
+                    if(this.cart[i] === id){
+                        count++;
+                    }
+                }
+                return count;
+            },
+            /*finds product that is similar*/  
+             productFinder(id) {
+               for (let i =0; i< this.products.length;i++)
+               {
+                if(this.products[i].id===id)
+                    return this.products[i];
+               }
+             },
+            /*Method to remove from cart and add back to product*/  
+             removeCart(id){
+              
+                for(let i =0;i<this.cart.length;i++)
+                    {
+                        let tmp;
+                        if(id===this.cart[i])
+                        {
+                            this.cart.splice(i,1);
+                            this.productFinder(id).quantity+=1;
+                            break;
+                        }
+                    }
+             },
+            /*Dynamic searching*/  
+             searcher(){
+                let url ="http://localhost:3000/collection/lessons/"
+                if (!this.search && this.search ===" "){
+                    fetch(url).then(
+                        function (response) {
+                            response.json().then(
+                                function (json) {
+                                    // storing the response
+                                    webstore.products = json;
+                                });
+                        }
+                    )
+                }
+                else{
+                fetch(url.concat(this.search)).then(
+                function (response) {
+                    response.json().then(
+                        function (json) {
+                            // storing the response
+                            webstore.products = json;
+                        });
+                }
+            )
+            }
+            },
+            /*sorting function*/ 
+            sorter()
+            {
+                if(document.getElementById('Price').checked===true)
+                {
+                    function compare(a,b){
+                        if (a.price > b.price)
+                            return 1;
+                        if (a.price < b.price)
+                            return -1
+                        return 0;
+                    }
+                     this.products.sort(compare);
+                }
+                else if(document.getElementById('location').checked===true)
+                {
+                    function compare(a,b){
+                        if (a.location > b.location)
+                            return 1;
+                        if (a.location < b.location)
+                            return -1
+                        return 0;
+                    }
+                     this.products.sort(compare);
+                }
+                else if(document.getElementById('Subject').checked===true)
+                {
+                    function compare(a,b){
+                        if (a.title > b.title)
+                            return 1;
+                        if (a.title < b.title)
+                            return -1
+                        return 0;
+                    }
+                     this.products.sort(compare);
+                }
+                else if(document.getElementById('Space').checked===true)
+                {
+                    function compare(a,b){
+                        if (a.quantity > b.quantity)
+                            return 1;
+                        if (a.quantity < b.quantity)
+                            return -1
+                        return 0;
+                    }
+                     this.products.sort(compare);
+                }
+
+                if(document.getElementById('Assend').checked===true)
+                ;
+                else if(document.getElementById('Dessend').checked===true)
+                {
+                    console.log(document.getElementById('Dessend').value)
+                    this.products.reverse();
+                }
+
+            }
+        },
+        /*computed is for calculating values*/ 
+        computed: {
+            /*returns length of cart*/ 
+            cartLength: function() {
+                return this.cart.length || '';
+            },
+            canForm(){
+                var letters = /^[A-Za-z]+$/;
+                if (this.order.firstName.match(letters) )
+                    if( this.order.lastName.match(letters)) 
+                        if( this.order.number.length ===10)
+                             return this.order.show=true;
+                else
+                        return this.order.show=false;
+            },
+        },
+        created: function () {
+            console.log('requesting data from the server ...')
+            // retrieving data from the server
+            fetch('http://localhost:3000/collection/lessons').then(
+                function (response) {
+                    response.json().then(
+                        function (json) {
+                            // storing the response
+                            webstore.products = json;
+                        });
+                }
+            )
+        }
+    });
+</script>
+<!-- End of script -->
+</body>
+</html>
