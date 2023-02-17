@@ -4,4 +4,4 @@
 
 ## Postman test info: https://webxox.github.io/CW2-individual/static/js/CW2-Individual.postman_collection.json
 
-users must run server locally to make the page work
+users must run the server locally to make the page work
